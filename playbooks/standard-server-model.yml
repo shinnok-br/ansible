@@ -1,0 +1,15 @@
+---
+- hosts: hostgroup
+  remote_user: root
+  become: true
+  vars:
+    users:
+    - PUT_USERNAME
+    - PUT_USERNAME2
+    zabbixserver:
+    - PUT_IP_OF_SERVER
+  roles:
+  - adduser
+  - zabbix-agent
+#  - postfix
+#  - installpackage

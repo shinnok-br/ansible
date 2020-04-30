@@ -1,0 +1,11 @@
+---
+- hosts: hostgroup
+  remote_user: root
+  become: true
+  vars:
+    zabbixserver:
+    - SET_IP_OF_SERVER
+  roles:
+  - zabbix-agent
+
+# Ex: 192.168.1.1

@@ -1,0 +1,28 @@
+---
+- name: Creating users in CentOS
+  user:
+    name: "{{ item }}"
+    password: '$6$6bF6tGN56k9f$2STEaAI/MMgmzMIJG1M55fSJopDlzFL1cbTVIJ1GHBDIda2ne9WAu5S6yhmuWD8GVzPPfR73X2n681O0vd6cA/'
+    groups: 
+    - wheel
+    state: present
+    create_home: yes
+    append: yes
+  loop: "{{ users }}"
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7' or ansible_distribution == 'CentOS' and ansible_distribution_major_version == '6'
+
+
+# The default password of users is "admin123"
+
+
+- name: Creating users in Debian
+  user:
+    name: "{{ item }}"
+    password: '$6$6bF6tGN56k9f$2STEaAI/MMgmzMIJG1M55fSJopDlzFL1cbTVIJ1GHBDIda2ne9WAu5S6yhmuWD8GVzPPfR73X2n681O0vd6cA/'
+    groups:
+    - sudo
+    state: present
+    create_home: yes
+    append: yes
+  loop: "{{ users }}"
+  when: ansible_distribution == 'Debian' and ansible_distribution_major_version == '9' or ansible_distribution == 'Debian' and ansible_distribution_major_version == '10'

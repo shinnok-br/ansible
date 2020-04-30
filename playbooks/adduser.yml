@@ -1,0 +1,12 @@
+---
+- hosts: hostgroup
+  become: true
+  vars:
+    users:
+    - USERNAME
+    - USERNAME2
+    - USERNAME3
+  roles:
+  - adduser
+
+# You can set as many users you need

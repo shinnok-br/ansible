@@ -1,0 +1,38 @@
+---
+- name: "Set up users authorized keys"
+  authorized_key:
+    user: "{{ item }}"
+    state: present
+    path: /home/{{ item }}/.ssh/authorized_keys
+    key: "{{ lookup('file', 'files/'+ item + '.pub') }}"
+    manage_dir: yes
+  with_items: "{{ users }}"
+
+#---------------------------------------------------------------------------------------------------------
+
+#- name: Create remote user
+#  user:
+#    name: '{{ item }}'
+#    shell: /bin/bash
+#    groups: sudo
+#    append: yes
+#    create_home: True
+#  loop: '{{ users }}'
+#
+#- name: Create ssh dir in home
+#  file:
+#    path: /home/{{ item }}/.ssh/
+#    state: directory
+#    owner: '{{ item }}'
+#    group: '{{ item }}'
+#    mode: 0700
+#  loop: '{{ users }}'
+#
+#- name: Create Authorized Keys file
+#  copy:
+#    src: /opt/pub_keys/{{ item }}.pub
+#    dest: /home/{{ item }}/.ssh/authorized_keys
+#    owner: '{{ item }}'
+#    group: '{{ item }}'
+#    mode: 0644
+#  loop: "{{ users }}"
